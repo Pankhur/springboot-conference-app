@@ -15,6 +15,7 @@ public class Speaker {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Long speaker_id;
 
+    //for table names
     private String first_name;
     private String last_name;
     private String title;
