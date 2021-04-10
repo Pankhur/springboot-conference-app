@@ -1,9 +1,9 @@
 package com.pluralsight.conference.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.hibernate.annotations.Type;
+
+import javax.persistence.*;
+import java.util.List;
 
 // define entity for JPA & name as db table name
 @Entity(name ="speakers")
@@ -22,12 +22,32 @@ public class Speaker {
     private String company;
     private String speaker_bio;
 
+    //for bi directional communication refering to table session_speakers, which has relationship key
+    @ManyToMany(mappedBy = "speakers")
+    private List<Session> sessions;
+
+    //for handling binary data in java
+    @Lob
+    @Type(type="org.hiberanate.type.BinaryType")
+    private byte[] speaker_photo;
+
     //Constructor
     public Speaker() {
 
     }
 
+
     //Getter & setter methods
+
+    public List<Session> getSessions() {
+        return sessions;
+    }
+
+    public void setSessions(List<Session> sessions) {
+        this.sessions = sessions;
+    }
+
+
 
     public Long getSpeaker_id() {
         return speaker_id;
